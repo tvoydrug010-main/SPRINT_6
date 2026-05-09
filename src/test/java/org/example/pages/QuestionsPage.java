@@ -4,6 +4,9 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import java.util.List;
 
 public class QuestionsPage extends BasePage {
 
@@ -12,18 +15,19 @@ public class QuestionsPage extends BasePage {
     }
 
     @FindBy(css = "[data-accordion-component='AccordionItemButton']")
-    private WebElement questions;
+    private List <WebElement> questions;
 
     @FindBy(xpath = "//div[@class='accordion__panel']")
-    private WebElement answers;
+    private List <WebElement> answers;
 
-    public void clickQuestion() {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", questions);
-        try { Thread.sleep(500); } catch (InterruptedException e) {}
-        questions.click();
+    public void clickQuestionsByIndex(int index) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", questions.get(index));
+        wait.until(ExpectedConditions.elementToBeClickable(questions.get(index))).click();
     }
 
-    public String getAnswerText() {
-        return answers.getText();
+    public String getAnswerText(int index) {
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true);", questions.get(index));
+        wait.until(ExpectedConditions.elementToBeClickable(questions.get(index))).click();
+        return answers.get(index).getText();
     }
 }

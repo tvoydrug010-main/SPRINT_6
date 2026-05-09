@@ -16,8 +16,8 @@ public class BaseTests {
     protected QuestionsPage questionsPage;
     @BeforeEach
     public void setUp() {
-        driver = new ChromeDriver();
-//        driver = new FirefoxDriver();
+//        driver = new ChromeDriver();
+        driver = new FirefoxDriver();
         driver.manage().window().maximize();
         driver.get("https://qa-scooter.education-services.ru/");
 
